@@ -2,6 +2,9 @@
 
 Client IP detector and various IP validators
 
+[![Total Downloads](https://img.shields.io/packagist/dt/dimchtz/clientip.svg)](https://packagist.org/packages/dimchtz/clientip)
+[![Latest Stable Version](https://img.shields.io/packagist/v/dimchtz/clientip.svg)](https://packagist.org/packages/dimchtz/clientip)
+
 ## Installation
 
 ```sh
