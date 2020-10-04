@@ -2,6 +2,12 @@
 
 Client IP detector and various IP validators
 
+## Installation
+
+```sh
+composer require dimchtz/clientip
+```
+
 ## Initialization
 
 ```php
