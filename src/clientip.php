@@ -19,7 +19,7 @@ namespace DimChtz\ClientIP;
 class ClientIP {
 
 	/**
-	 * Ip find services
+	 * IP Services
 	 * @var string
 	 */
 	private $services;
@@ -27,12 +27,13 @@ class ClientIP {
 	public function __construct($services = array()) {
 
 		$this->services = array_merge(array(
-			'http://checkip.dyndns.com/',
+			'http://v4.ident.me/',
+			'http://checkip.amazonaws.com/',
         	'http://ipecho.net/plain',
-        	'http://v4.ident.me/'
+        	'http://icanhazip.com/',
+        	'http://ifconfig.me/ip',
+        	'http://checkip.dyndns.com/',
 		), $services);
-
-		$this->timeout = $timeout;
 
 	}
 
@@ -44,26 +45,25 @@ class ClientIP {
 		
 		$ip = '0.0.0.0';
 
+		// Some IP services may stop working or throttle our requests
 		foreach ( $this->services as $service ) {
 
 			$ch =  curl_init($service);
-
-			$headers = array(
-				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-	    		"Accept-Encoding: gzip, deflate",
-	    		"Accept-Charset: utf-8;q=0.7,*;q=0.3",
-	    		"Accept-Language:en-US;q=0.6,en;q=0.4",
-	    		"Connection: keep-alive",
-			);
 
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+	    		"Accept-Encoding: gzip, deflate",
+	    		"Accept-Charset: utf-8;q=0.7,*;q=0.3",
+	    		"Accept-Language:en-US;q=0.6,en;q=0.4",
+	    		"Connection: keep-alive",
+			));
 
-			$result = curl_exec($ch);
+			$result = trim(curl_exec($ch));
 
 			curl_close($ch);
 
@@ -96,6 +96,7 @@ class ClientIP {
         	$ip = $_SERVER['REMOTE_ADDR'];
         }
 
+        // If localhost and localhost check is enabled return the external IP instead
     	if ( in_array($ip, ['127.0.0.1', '::1']) && $localhost_check ) {
         	return $this->get_external_ip();
     	}
