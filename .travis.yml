@@ -14,3 +14,7 @@ env:
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+
+install: composer install --no-ansi --no-interaction --no-progress --prefer-dist
+
+script: vendor/bin/phpunit
