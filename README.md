@@ -2,7 +2,23 @@
 
 Client IP detector and various IP validators
 
-# Usage & Examples
+## Initialization
+
+```php
+$client = new DimChtz\ClientIP\ClientIP();
+```
+
+You can also add additional IP services (for the external IP detection functionality):
+
+```php
+$client = new DimChtz\ClientIP\ClientIP(array(
+	'http://v4.ident.me/',
+	'http://checkip.amazonaws.com/',
+    'http://ipecho.net/plain',
+));
+```
+
+## Usage & Examples
 
 #### Getting client's IP (without localhost check)
 
