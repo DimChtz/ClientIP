@@ -19,9 +19,9 @@ namespace DimChtz\ClientIP;
 class ClientIP {
 
 	/**
-     * Ip find services
-     * @var string
-     */
+	 * Ip find services
+	 * @var string
+	 */
 	private $services;
 
 	public function __construct($services = array()) {
@@ -85,22 +85,22 @@ class ClientIP {
 	public function get_ip($localhost_check = true) {
 
 		$ip = '0.0.0.0';
-
+	
 		if ( array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER) && !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ) {
-            if ( strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') > 0 ) {
-                $ip = trim(explode(",",$_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
-            } else {
-                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            }
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
+        	if ( strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') > 0 ) {
+            	$ip = trim(explode(",",$_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
+        	} else {
+            	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        	}
+    	} else {
+        	$ip = $_SERVER['REMOTE_ADDR'];
         }
 
-        if ( in_array($ip, ['127.0.0.1', '::1']) && $localhost_check ) {
+    	if ( in_array($ip, ['127.0.0.1', '::1']) && $localhost_check ) {
         	return $this->get_external_ip();
-        }
+    	}
 
-        return $ip;
+    	return $ip;
 
 	}
 
