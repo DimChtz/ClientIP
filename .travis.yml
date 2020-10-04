@@ -12,9 +12,10 @@ env:
   global:
     - COMPOSER_ROOT_VERSION=1.3
 
-before_install:
-  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+before_install: composer self-update --2
 
-install: composer install --no-ansi --no-interaction --no-progress --prefer-dist
+install:
+    - rm composer.lock
+    - travis_retry composer update --no-interaction --prefer-dist
 
-script: vendor/bin/phpunit
+script: ./vendor/bin/phpunit --exclude-group performance
