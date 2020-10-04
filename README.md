@@ -14,7 +14,7 @@ You can also add additional IP services (for the external IP detection functiona
 $client = new DimChtz\ClientIP\ClientIP(array(
 	'http://v4.ident.me/',
 	'http://checkip.amazonaws.com/',
-    'http://ipecho.net/plain',
+	'http://ipecho.net/plain',
 ));
 ```
 
@@ -52,4 +52,22 @@ echo 'Visitor\'s external IP: ' . $client->get_external_ip();
 $client = new DimChtz\ClientIP\ClientIP();
 
 echo $client->is_localhost() ? 'It is localhost' : 'It is not localhost';
+```
+
+#### Check if an IP is valid (both IPv4 & IPv6)
+
+```php
+echo DimChtz\ClientIP\ClientIP::is_valid_ip('192.168.56.23') ? 'It is valid IP' : 'It is not valid IP';
+```
+
+#### Check if an IP is valid IPv4
+
+```php
+echo DimChtz\ClientIP\ClientIP::is_valid_ipv4('192.168.56.23') ? 'It is valid IPv4' : 'It is not valid IPv4';
+```
+
+#### Check if an IP is valid IPv6
+
+```php
+echo DimChtz\ClientIP\ClientIP::is_valid_ipv6('::1') ? 'It is valid IPv6' : 'It is not valid IPv6';
 ```
