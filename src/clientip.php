@@ -28,8 +28,8 @@ class ClientIP {
 
 		$this->services = array_merge(array(
 			'http://checkip.dyndns.com/',
-            'http://ipecho.net/plain',
-            'http://v4.ident.me/'
+        	'http://ipecho.net/plain',
+        	'http://v4.ident.me/'
 		), $services);
 
 		$this->timeout = $timeout;
