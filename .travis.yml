@@ -15,5 +15,4 @@ env:
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
 
-script:
-  - ./vendor/bin/phpunit -v
+script: phpunit
